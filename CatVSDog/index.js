@@ -82,13 +82,13 @@ var greenMat = new THREE.MeshPhongMaterial({
     shading:THREE.FlatShading
   });
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load('libs/texture/grass.jpg');
-  texture.encoding = THREE.sRGBEncoding;
-  texture.anisotropy = 16;
-  // var rumput = new THREE.TextureLoader().load('libs/texture/grass.jpg');
-  // rumput.wrapS = THREE.RepeatWrapping;
-  // rumput.wrapT = THREE.RepeatWrapping;
-  // rumput.repeat.set( 4, 4);
+  const grass = textureLoader.load('libs/texture/grass.jpg');
+  grass.encoding = THREE.sRGBEncoding;
+  grass.anisotropy = 16;
+
+  const building = textureLoader.load('libs/texture/building.jpg');
+  building.encoding = THREE.sRGBEncoding;
+  building.anisotropy = 16;
 
 
 // OTHER VARIABLES
@@ -201,11 +201,8 @@ function createFloor() {
   //floorShadow.rotation.x = -Math.PI / 2;
   floorShadow.receiveShadow = true;
   
-  // floorGrass = new THREE.Mesh(new THREE.SphereGeometry(floorRadius-.5, 50, 50), new THREE.MeshBasicMaterial({
-  //   color: 0x7abf8e
-  // }));
   floorGrass = new THREE.Mesh(new THREE.SphereGeometry(floorRadius-.5, 50, 50), new THREE.MeshStandardMaterial({
-      map: texture,
+      map: grass,
     }));
   //floor.rotation.x = -Math.PI / 2;
   floorGrass.receiveShadow = false;
@@ -219,7 +216,7 @@ function createFloor() {
   
 }
 
-//GAME CONFIGURATION
+//HERO
 
 Hero = function() {
   this.status = "running";
@@ -382,8 +379,10 @@ BonusParticles = function(){
   this.mesh = new THREE.Group();
   var bigParticleGeom = new THREE.CubeGeometry(10,10,10,1);
   var smallParticleGeom = new THREE.CubeGeometry(5,5,5,1);
+  // var bigParticleGeom = new THREE.SphereGeometry(10,10,1);
+  // var smallParticleGeom = new THREE.SphereGeometry(5,5,1);
   this.parts = [];
-  for (var i=0; i<10; i++){
+  for (var i=0; i<1; i++){
     var partPink = new THREE.Mesh(bigParticleGeom, pinkMat);
     var partGreen = new THREE.Mesh(smallParticleGeom, greenMat);
     partGreen.scale.set(.5,.5,.5);
@@ -899,78 +898,14 @@ Carrot = function() {
   });
 }
 
-Hedgehog = function() {
+Stone = function() {
   this.angle = 0;
   this.status="ready";
   this.mesh = new THREE.Group();
-  var bodyGeom = new THREE.CubeGeometry(6,6,6,1);
+  var bodyGeom = new THREE.SphereGeometry(6,6,6,1);
   this.body = new THREE.Mesh(bodyGeom, blackMat);
-  
-  var headGeom = new THREE.CubeGeometry(5,5,7,1);
-  this.head= new THREE.Mesh(headGeom, lightBrownMat);
-  this.head.position.z = 6;
-  this.head.position.y = -.5;
-  
-  var noseGeom = new THREE.CubeGeometry(1.5,1.5,1.5,1);
-  this.nose = new THREE.Mesh(noseGeom, blackMat);
-  this.nose.position.z = 4;
-  this.nose.position.y = 2;
-  
-  var eyeGeom = new THREE.CubeGeometry(1,3,3);
-  
-  this.eyeL = new THREE.Mesh(eyeGeom, whiteMat);
-  this.eyeL.position.x = 2.2;
-  this.eyeL.position.z = -.5;
-  this.eyeL.position.y = .8;
-  this.eyeL.castShadow = true;
-  this.head.add(this.eyeL);
-  
-  var irisGeom = new THREE.CubeGeometry(.5,1,1);
-  
-  this.iris = new THREE.Mesh(irisGeom, blackMat);
-  this.iris.position.x = .5;
-  this.iris.position.y = .8;
-  this.iris.position.z = .8;
-  this.eyeL.add(this.iris);
-  
-  this.eyeR = this.eyeL.clone();
-  this.eyeR.children[0].position.x = -this.iris.position.x;
-  this.eyeR.position.x = -this.eyeL.position.x;
-  
-  var spikeGeom = new THREE.CubeGeometry(.5,2,.5,1);
-  spikeGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,1,0));
-  
-  for (var i=0; i<9; i++){ 
-    var row = (i%3);
-    var col = Math.floor(i/3);
-    var sb = new THREE.Mesh(spikeGeom, blackMat);
-    sb.rotation.x =-Math.PI/2 + (Math.PI/12*row) -.5 +  Math.random();
-    sb.position.z = -3;
-    sb.position.y = -2 + row*2;
-    sb.position.x = -2 + col*2; 
-    this.body.add(sb); 
-    var st = new THREE.Mesh(spikeGeom, blackMat);
-    st.position.y = 3;
-    st.position.x = -2 + row*2;
-    st.position.z = -2 + col*2;
-    st.rotation.z = Math.PI/6 - (Math.PI/6*row) -.5 +  Math.random();
-    this.body.add(st);
-    
-    var sr = new THREE.Mesh(spikeGeom, blackMat);
-    sr.position.x = 3;
-    sr.position.y = -2 + row*2;
-    sr.position.z = -2 + col*2;
-    sr.rotation.z = -Math.PI/2 + (Math.PI/12*row) -.5 +  Math.random();
-    this.body.add(sr);
-    
-    var sl = new THREE.Mesh(spikeGeom, blackMat);
-    sl.position.x = -3;
-    sl.position.y = -2 + row*2;
-    sl.position.z = -2 + col*2;
-    sl.rotation.z = Math.PI/2  - (Math.PI/12*row) -.5 +  Math.random();;
-    this.body.add(sl); 
-  }
 
+<<<<<<< HEAD
   this.head.add(this.eyeR);
   var earGeom = new THREE.ConeGeometry(2, .5, 1);
   this.earL = new THREE.Mesh(earGeom, lightBrownMat);
@@ -994,9 +929,9 @@ Hedgehog = function() {
   this.head.add(this.mouth);
   
   
+=======
+>>>>>>> ce18049a73785839a50adf4c18d624ea2ddcafb2
   this.mesh.add(this.body);
-  this.body.add(this.head);
-  this.head.add(this.nose);
 
   this.mesh.traverse(function(object) {
     if (object instanceof THREE.Mesh) {
@@ -1006,11 +941,11 @@ Hedgehog = function() {
   });
 }
 
-Hedgehog.prototype.nod = function(){
+Stone.prototype.nod = function(){
   var _this = this;
   var speed = .1 + Math.random()*.5;
   var angle = -Math.PI/4 + Math.random()*Math.PI/2;
-  TweenMax.to(this.head.rotation, speed, {y:angle, onComplete:function(){
+  TweenMax.to(this.body.rotation, speed, {y:angle, onComplete:function(){
     _this.nod();
   }});
 }
@@ -1105,13 +1040,14 @@ function replay(){
   
 }
 
-Fir = function() {
-  var height = 200;
-  var truncGeom = new THREE.CylinderGeometry(2,2,height, 6,1);
-  truncGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,height/2,0));
-  this.mesh = new THREE.Mesh(truncGeom, greenMat);
-  this.mesh.castShadow = true;
-}
+// Fir = function() {
+//   var height = 200;
+//   // var truncGeom = new THREE.CylinderGeometry(2,2,height, 6,1);
+//   var truncGeom = new THREE.BoxGeometry(100,100,100);
+//   truncGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,height/2,0));
+//   this.mesh = new THREE.Mesh(truncGeom, blackMat);
+//   this.mesh.castShadow = true;
+// }
 
 var firs = new THREE.Group();
 
@@ -1171,7 +1107,7 @@ function updateFloorRotation(){
 }
 
 function createObstacle(){
-  obstacle = new Hedgehog();
+  obstacle = new Stone();
   obstacle.body.rotation.y = -Math.PI/2;
   obstacle.mesh.scale.set(1.1,1.1,1.1);
   obstacle.mesh.position.y = floorRadius+4;
@@ -1333,17 +1269,20 @@ Tree = function(){
 
 
 Trunc = function(){
-  var truncHeight = 50 + Math.random()*150;
-  var topRadius = 1+Math.random()*5;
-  var bottomRadius = 5+Math.random()*5;
+  var buildHeight = Math.random() * 150;
+  var buildWidth = 20 + Math.random() * 10;
   var mats = [blackMat, brownMat, pinkMat, whiteMat, greenMat, lightBrownMat, pinkMat];
-  var matTrunc = blackMat;//mats[Math.floor(Math.random()*mats.length)];
-  var nhSegments = 3;//Math.ceil(2 + Math.random()*6);
-  var nvSegments = 3;//Math.ceil(2 + Math.random()*6);
-  var geom = new THREE.CylinderGeometry(topRadius,bottomRadius,truncHeight, nhSegments, nvSegments);
-  geom.applyMatrix(new THREE.Matrix4().makeTranslation(0,truncHeight/2,0));
+  // var matTrunc = blackMat;//mats[Math.floor(Math.random()*mats.length)];
+  var matBuild = new THREE.MeshStandardMaterial({
+    map : building,
+  });
+  var nhSegments = 0;//Math.ceil(2 + Math.random()*6);
+  var nvSegments = 0;//Math.ceil(2 + Math.random()*6);
+  var ndSegments = 0;
+  var geom = new THREE.BoxGeometry(buildWidth, buildHeight, buildWidth ,nhSegments, nvSegments, ndSegments);
+  geom.applyMatrix(new THREE.Matrix4().makeTranslation(0,buildHeight/2,0));
   
-  this.mesh = new THREE.Mesh(geom, matTrunc);
+  this.mesh = new THREE.Mesh(geom, matBuild);
   
   for (var i=0; i<geom.vertices.length; i++){
     var noise = Math.random() ;
@@ -1368,27 +1307,6 @@ Trunc = function(){
       fruit.rotation.y = Math.random()*Math.PI;
       
       this.mesh.add(fruit);
-    }
-    
-    // BRANCHES
-    
-    if (Math.random()>.5 && v.y > 10 && v.y < truncHeight - 10){
-      var h = 3 + Math.random()*5;
-      var thickness = .2 + Math.random();
-      
-      var branchGeometry = new THREE.CylinderGeometry(thickness/2, thickness, h, 3, 1);
-      branchGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0,h/2,0));
-      var branch = new THREE.Mesh(branchGeometry, matTrunc);
-      branch.position.x = v.x;
-      branch.position.y = v.y;
-      branch.position.z = v.z;
-      
-      var vec = new THREE.Vector3(v.x, 2, v.z);
-      var axis = new THREE.Vector3(0,1,0);
-      branch.quaternion.setFromUnitVectors(axis, vec.clone().normalize());
-      
-      
-      this.mesh.add(branch);
     }
     
   }
