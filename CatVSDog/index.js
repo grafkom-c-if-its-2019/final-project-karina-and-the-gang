@@ -905,32 +905,6 @@ Stone = function() {
   var bodyGeom = new THREE.SphereGeometry(6,6,6,1);
   this.body = new THREE.Mesh(bodyGeom, blackMat);
 
-<<<<<<< HEAD
-  this.head.add(this.eyeR);
-  var earGeom = new THREE.ConeGeometry(2, .5, 1);
-  this.earL = new THREE.Mesh(earGeom, lightBrownMat);
-  this.earL.position.x = 2.5;
-  this.earL.position.z = -2.5;
-  this.earL.position.y = 2.5;
-  this.earL.rotation.z = -Math.PI/12;
-  this.earL.castShadow = true;
-  this.head.add(this.earL);
-  
-  this.earR = this.earL.clone();
-  this.earR.position.x = -this.earL.position.x;
-  this.earR.rotation.z = -this.earL.rotation.z;
-  this.earR.castShadow = true;
-  this.head.add(this.earR);
-  
-  var mouthGeom = new THREE.CubeGeometry( 1, 1,.5, 1);
-  this.mouth = new THREE.Mesh(mouthGeom, blackMat);
-  this.mouth.position.z = 3.5;
-  this.mouth.position.y = -1.5;
-  this.head.add(this.mouth);
-  
-  
-=======
->>>>>>> ce18049a73785839a50adf4c18d624ea2ddcafb2
   this.mesh.add(this.body);
 
   this.mesh.traverse(function(object) {
