@@ -1233,7 +1233,7 @@ Tree = function(){
 
 Trunc = function(){
   var buildHeight = Math.random() * 150;
-  var buildWidth = 30 + Math.random() * 10;
+  var buildWidth = 20 + Math.random() * 10;
   var mats = [blackMat, brownMat, pinkMat, whiteMat, greenMat, lightBrownMat, pinkMat];
   // var matTrunc = blackMat;//mats[Math.floor(Math.random()*mats.length)];
   var matBuild = new THREE.MeshStandardMaterial({
