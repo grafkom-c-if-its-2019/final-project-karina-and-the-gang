@@ -81,6 +81,14 @@ var greenMat = new THREE.MeshPhongMaterial({
     color: 0xff9ea5,
     shading:THREE.FlatShading
   });
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load('libs/texture/grass.jpg');
+  texture.encoding = THREE.sRGBEncoding;
+  texture.anisotropy = 16;
+  // var rumput = new THREE.TextureLoader().load('libs/texture/grass.jpg');
+  // rumput.wrapS = THREE.RepeatWrapping;
+  // rumput.wrapT = THREE.RepeatWrapping;
+  // rumput.repeat.set( 4, 4);
 
 
 // OTHER VARIABLES
@@ -132,13 +140,13 @@ function initScreenAnd3D() {
   document.addEventListener('mousedown', handleMouseDown, false);
   document.addEventListener("touchend", handleMouseDown, false);
 
-  /*
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
-  //controls.minPolarAngle = -Math.PI / 2; 
-  //controls.maxPolarAngle = Math.PI / 2;
-  //controls.noZoom = true;
-  controls.noPan = true;
-  //*/
+  
+  // controls = new THREE.OrbitControls(camera, renderer.domElement);
+  // controls.minPolarAngle = -Math.PI / 2; 
+  // controls.maxPolarAngle = Math.PI / 2;
+  // controls.noZoom = true;
+  // controls.noPan = true;
+  
   
   clock = new THREE.Clock();
 
@@ -188,14 +196,17 @@ function createFloor() {
     specular:0x000000,
     shininess:1,
     transparent:true,
-    opacity:.5
+    opacity:.1
   }));
   //floorShadow.rotation.x = -Math.PI / 2;
   floorShadow.receiveShadow = true;
   
-  floorGrass = new THREE.Mesh(new THREE.SphereGeometry(floorRadius-.5, 50, 50), new THREE.MeshBasicMaterial({
-    color: 0x7abf8e
-  }));
+  // floorGrass = new THREE.Mesh(new THREE.SphereGeometry(floorRadius-.5, 50, 50), new THREE.MeshBasicMaterial({
+  //   color: 0x7abf8e
+  // }));
+  floorGrass = new THREE.Mesh(new THREE.SphereGeometry(floorRadius-.5, 50, 50), new THREE.MeshStandardMaterial({
+      map: texture,
+    }));
   //floor.rotation.x = -Math.PI / 2;
   floorGrass.receiveShadow = false;
   
@@ -207,6 +218,8 @@ function createFloor() {
   scene.add(floor);
   
 }
+
+//GAME CONFIGURATION
 
 Hero = function() {
   this.status = "running";
