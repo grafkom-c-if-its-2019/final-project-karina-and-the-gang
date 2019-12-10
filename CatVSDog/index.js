@@ -239,17 +239,21 @@ Hero = function() {
   this.pants.position.y = 0;
   this.pants.castShadow = true;
   this.torso.add(this.pants);
+
+  var tailGeom = new THREE.CylinderGeometry(5,2, 10, 4, 1);
+  tailGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,10,0));
+  tailGeom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
+  tailGeom.applyMatrix(new THREE.Matrix4().makeRotationZ(Math.PI/4));
   
-  var tailGeom = new THREE.CubeGeometry(3, 3, 3, 1);
-  tailGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,0,-2));
-  this.tail = new THREE.Mesh(tailGeom, lightBrownMat);
-  this.tail.position.z = -4;
-  this.tail.position.y = 5;
+  this.tail = new THREE.Mesh(tailGeom, brownMat);
+  this.tail.position.z = -1;
+  this.tail.position.y = 1.2;
   this.tail.castShadow = true;
   this.torso.add(this.tail);
   
   this.torso.rotation.x = -Math.PI/8;
-  
+
+  //ini kepala kucing
   var headGeom = new THREE.CubeGeometry(10, 10, 13, 1);
   
   headGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,0,7.5));
@@ -315,32 +319,28 @@ Hero = function() {
   this.pawBR.castShadow = true;
   this.body.add(this.pawBR);
   
-  var earGeom = new THREE.CubeGeometry(7, 18, 2, 1);
-  earGeom.vertices[6].x+=2;
-  earGeom.vertices[6].z+=.5;
-  
-  earGeom.vertices[7].x+=2;
-  earGeom.vertices[7].z-=.5;
-  
-  earGeom.vertices[2].x-=2;
-  earGeom.vertices[2].z-=.5;
-  
-  earGeom.vertices[3].x-=2;
-  earGeom.vertices[3].z+=.5;
-  earGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,9,0));
+  // ini telinga kucing
+  var earGeom = new THREE.CubeGeometry(8, 6, 2, 1);
+  earGeom.vertices[1].x-=4;
+  earGeom.vertices[4].x+=4;
+  earGeom.vertices[5].x+=4;
+  earGeom.vertices[5].z-=2;
+  earGeom.vertices[0].x-=4;
+  earGeom.vertices[0].z-=2;
+
+ 
+  earGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,3,0));
   
   this.earL = new THREE.Mesh(earGeom, brownMat);
-  this.earL.position.x = 2;
-  this.earL.position.z = 2.5;
+  this.earL.position.x = 7;
+  this.earL.position.z = 1;
   this.earL.position.y = 5;
-  this.earL.rotation.z = -Math.PI/12;
   this.earL.castShadow = true;
   this.head.add(this.earL);
   
   this.earR = this.earL.clone();
   this.earR.position.x = -this.earL.position.x;
   this.earR.rotation.z = -this.earL.rotation.z;
-  this.earR.castShadow = true;
   this.head.add(this.earR);
   
   var eyeGeom = new THREE.CubeGeometry(2,4,4);
@@ -898,6 +898,57 @@ Carrot = function() {
   });
 }
 
+Ikan = function() {
+  this.angle = 0;
+  this.mesh = new THREE.Group();
+  
+  var bodyGeom = new THREE.CylinderGeometry(3,3, 11, 30);
+  bodyGeom.vertices[8].y+=4;
+  bodyGeom.vertices[9].y-=5;
+  
+  this.body = new THREE.Mesh(bodyGeom, brownMat);
+  
+  var leafGeom = new THREE.SphereGeometry(5,31,21);
+  leafGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,5,0));
+  leafGeom.vertices[2].x-=1;
+  leafGeom.vertices[3].x-=1;
+  leafGeom.vertices[6].x+=1;
+  leafGeom.vertices[7].x+=1;
+  
+  this.leaf1 = new THREE.Mesh(leafGeom,whiteMat);
+  this.leaf1.position.y = 7;
+  this.leaf1.rotation.z = .3;
+  this.leaf1.rotation.x = .2;
+  
+  this.leaf2 = this.leaf1.clone();
+  this.leaf2.position.y = 7;
+  this.leaf2.rotation.z = -.3;
+  this.leaf2.rotation.x = -.2;
+
+  this.leaf3 = this.leaf1.clone();
+  this.leaf3.position.y = -7;
+  this.leaf3.rotation.z = .3;
+  this.leaf3.rotation.x = .2;
+
+  this.leaf4 = this.leaf1.clone();
+  this.leaf4.position.y = -7;
+  this.leaf4.rotation.z = -.3;
+  this.leaf4.rotation.x = -.2; 
+  
+  this.mesh.add(this.body);
+  this.mesh.add(this.leaf1);
+  this.mesh.add(this.leaf2);
+  this.mesh.add(this.leaf3);
+  this.mesh.add(this.leaf4);
+
+  this.body.traverse(function(object) {
+    if (object instanceof THREE.Mesh) {
+      object.castShadow = true;
+      object.receiveShadow = true;
+    }
+  });
+}
+
 Stone = function() {
   this.angle = 0;
   this.status="ready";
@@ -965,6 +1016,7 @@ function gameOver(){
   TweenMax.to(this, 1, {speed:0});
   TweenMax.to(camera.position, 3, {z:cameraPosGameOver, y: 60, x:-30});
   carrot.mesh.visible = false;
+  ikan.mesh.visible = false;
   obstacle.mesh.visible = false;
   clearInterval(levelInterval);
 }
@@ -1051,11 +1103,24 @@ function createCarrot(){
   scene.add(carrot.mesh);
 }
 
+function createIkan(){
+  ikan = new Ikan();
+  scene.add(ikan.mesh);
+}
+
 function updateCarrotPosition(){
   carrot.mesh.rotation.y += delta * 6;
   carrot.mesh.rotation.z = Math.PI/2 - (floorRotation+carrot.angle);
   carrot.mesh.position.y = -floorRadius + Math.sin(floorRotation+carrot.angle) * (floorRadius+50);
   carrot.mesh.position.x = Math.cos(floorRotation+carrot.angle) * (floorRadius+50);
+  
+}
+
+function updateIkanPosition(){
+  ikan.mesh.rotation.y += delta * 6;
+  ikan.mesh.rotation.z = Math.PI/2 - (floorRotation+ikan.angle);
+  ikan.mesh.position.y = -floorRadius + Math.sin(floorRotation+ikan.angle) * (floorRadius+50);
+  ikan.mesh.position.x = Math.cos(floorRotation+ikan.angle) * (floorRadius+50);
   
 }
 
@@ -1100,10 +1165,15 @@ function createBonusParticles(){
 
 function checkCollision(){
   var db = hero.mesh.position.clone().sub(carrot.mesh.position.clone());
+  var di = hero.mesh.position.clone().sub(ikan.mesh.position.clone());
   var dm = hero.mesh.position.clone().sub(obstacle.mesh.position.clone());
   
   if(db.length() < collisionBonus){
     getBonus();
+  }
+
+  if(di.length() < collisionBonus){
+    getBonus2();
   }
   
   if(dm.length() < collisionObstacle && obstacle.status != "flying"){
@@ -1116,6 +1186,16 @@ function getBonus(){
   bonusParticles.mesh.visible = true;
   bonusParticles.explose();
   carrot.angle += Math.PI/2;
+  //speed*=.95;
+  monsterPosTarget += .025;
+  
+}
+
+function getBonus2(){
+  bonusParticles.mesh.position.copy(ikan.mesh.position);
+  bonusParticles.mesh.visible = true;
+  bonusParticles.explose();
+  ikan.angle += Math.PI/2;
   //speed*=.95;
   monsterPosTarget += .025;
   
@@ -1168,6 +1248,7 @@ function loop(){
     updateDistance();
     updateMonsterPosition();
     updateCarrotPosition();
+    updateIkanPosition();
     updateObstaclePosition();
     checkCollision();
   }
@@ -1190,6 +1271,7 @@ function init(event){
   createMonster();
   createFirs();
   createCarrot();
+  createIkan();
   createBonusParticles();
   createObstacle();
   initUI();
@@ -1212,6 +1294,7 @@ function resetGame(){
   level = 0;
   distance = 0;
   carrot.mesh.visible = true;
+  ikan.mesh.visible = true;
   obstacle.mesh.visible = true;
   gameStatus = "play";
   hero.status = "running";
