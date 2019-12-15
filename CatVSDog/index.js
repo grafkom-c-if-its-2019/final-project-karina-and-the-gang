@@ -27,7 +27,8 @@ var cameraPosGameOver = 260;
 var monsterAcceleration = 0.004;
 var malusClearColor = 0xb44b39;
 var malusClearAlpha = 0;
-var audio = new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/264161/Antonio-Vivaldi-Summer_01.mp3');
+var audio = new Audio('audio/audio.mp3');
+
 
 var fieldGameOver, fieldDistance;
 
@@ -82,7 +83,7 @@ var greenMat = new THREE.MeshPhongMaterial({
     shading:THREE.FlatShading
   });
   const textureLoader = new THREE.TextureLoader();
-  const grass = textureLoader.load('libs/texture/grass.jpg');
+  const grass = textureLoader.load('libs/texture/pinklagi.jpg');
   grass.encoding = THREE.sRGBEncoding;
   grass.anisotropy = 16;
 
@@ -307,7 +308,6 @@ Hero = function() {
   earGeom.vertices[0].x-=4;
   earGeom.vertices[0].z-=2;
 
- 
   earGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,3,0));
   
   this.earL = new THREE.Mesh(earGeom, lightBrownMat);
@@ -322,7 +322,8 @@ Hero = function() {
   this.earR.rotation.z = -this.earL.rotation.z;
   this.head.add(this.earR);
   
-  var eyeGeom = new THREE.CubeGeometry(2,4,4);
+  // var eyeGeom = new THREE.CubeGeometry(2,4,4);
+  var eyeGeom = new THREE.DodecahedronGeometry(1.5,2);
   
   this.eyeL = new THREE.Mesh(eyeGeom, whiteMat);
   this.eyeL.position.x = 5;
@@ -331,12 +332,12 @@ Hero = function() {
   this.eyeL.castShadow = true;
   this.head.add(this.eyeL);
   
-  var irisGeom = new THREE.CubeGeometry(.6,2,2);
+  var irisGeom = new THREE.DodecahedronGeometry(0.7,2);
   
   this.iris = new THREE.Mesh(irisGeom, blackMat);
-  this.iris.position.x = 1.2;
-  this.iris.position.y = 1;
-  this.iris.position.z = 1;
+  this.iris.position.x = 2;
+  this.iris.position.y = 1.2;
+  this.iris.position.z = 1.2;
   this.eyeL.add(this.iris);
   
   this.eyeR = this.eyeL.clone();
@@ -561,7 +562,8 @@ Monster = function(){
   
   this.head.add(this.mouth);
   
-  var eyeGeom = new THREE.CubeGeometry(2,3,3);
+  var eyeGeom = new THREE.DodecahedronGeometry(2,2);
+
   
   this.eyeL = new THREE.Mesh(eyeGeom, whiteMat);
   this.eyeL.position.x = 10;
@@ -570,7 +572,7 @@ Monster = function(){
   this.eyeL.castShadow = true;
   this.head.add(this.eyeL);
   
-  var irisGeom = new THREE.CubeGeometry(.6,1,1);
+  var irisGeom = new THREE.DodecahedronGeometry(.6,1);
   
   this.iris = new THREE.Mesh(irisGeom, blackMat);
   this.iris.position.x = 1.2;
@@ -1150,7 +1152,7 @@ function getMalus(){
     obstacle.mesh.rotation.y = 0;
     obstacle.mesh.rotation.z = 0;
     obstacle.mesh.position.z = 0;
-    
+
   }});
   //
   monsterPosTarget -= .04;
