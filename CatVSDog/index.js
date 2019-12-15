@@ -1021,8 +1021,7 @@ function createFirs(){
    for(var i=0; i< nTrees; i++){
     var phi = i*(Math.PI*2)/nTrees;
     var theta = Math.PI/2;
-    //theta += .25 + Math.random()*.3; 
-    theta += (Math.random()>.05)? .25 + Math.random()*.3 : - .35 -  Math.random()*.1;
+    theta += .25 + Math.random()*.3; 
    
     var fir = new Tree();
     fir.mesh.position.x = Math.sin(theta)*Math.cos(phi)*floorRadius;
@@ -1031,7 +1030,7 @@ function createFirs(){
      
     var vec = fir.mesh.position.clone();
     var axis = new THREE.Vector3(0,1,0);
-    fir.mesh.quaternion.setFromUnitVectors(axis, vec.clone().normalize());
+    fir.mesh.quaternion.setFromUnitVectors(axis, vec.normalize());
     floor.add(fir.mesh); 
   }
 }
@@ -1124,9 +1123,8 @@ function getBonus(){
   bonusParticles.mesh.visible = true;
   bonusParticles.explose();
   carrot.angle += Math.PI/2;
-  //speed*=.95;
+  speed*=.95;
   monsterPosTarget += .025;
-  
 }
 
 function getBonus2(){
@@ -1134,9 +1132,8 @@ function getBonus2(){
   bonusParticles.mesh.visible = true;
   bonusParticles.explose();
   ikan.angle += Math.PI/2;
-  //speed*=.95;
+  speed*=1.2;
   monsterPosTarget += .04;
-  
 }
 
 function getMalus(){
