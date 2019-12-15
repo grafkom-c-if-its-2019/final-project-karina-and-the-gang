@@ -27,7 +27,8 @@ var cameraPosGameOver = 260;
 var monsterAcceleration = 0.004;
 var malusClearColor = 0xb44b39;
 var malusClearAlpha = 0;
-var audio = new Audio('https://s3-us-west-2.amazonaws.com/s.cdpn.io/264161/Antonio-Vivaldi-Summer_01.mp3');
+var audio = new Audio('audio/audio.mp3');
+
 
 var fieldGameOver, fieldDistance;
 
@@ -1150,7 +1151,7 @@ function getMalus(){
     obstacle.mesh.rotation.y = 0;
     obstacle.mesh.rotation.z = 0;
     obstacle.mesh.position.z = 0;
-    
+
   }});
   //
   monsterPosTarget -= .04;
