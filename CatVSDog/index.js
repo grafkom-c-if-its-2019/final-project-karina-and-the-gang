@@ -107,7 +107,7 @@ function initScreenAnd3D() {
 
   scene = new THREE.Scene();
   
-  scene.fog = new THREE.Fog(0xd6eae6, 160,350);
+  scene.fog = new THREE.Fog(0x694E69, 140,390);
   
   aspectRatio = WIDTH / HEIGHT;
   fieldOfView = 50;
