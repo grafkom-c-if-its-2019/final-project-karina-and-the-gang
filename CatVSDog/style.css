@@ -27,7 +27,7 @@
   user-select: none;
   transition: all 500ms ease-in-out;
   
-  &.show{
+  .show{
     opacity:1;
     transform : translate(-50%,-50%);
     transition: all 500ms ease-in-out;
