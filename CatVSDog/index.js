@@ -139,14 +139,6 @@ function initScreenAnd3D() {
   window.addEventListener('resize', handleWindowResize, false);
   document.addEventListener('mousedown', handleMouseDown, false);
   document.addEventListener("touchend", handleMouseDown, false);
-
-  
-  // controls = new THREE.OrbitControls(camera, renderer.domElement);
-  // controls.minPolarAngle = -Math.PI / 2; 
-  // controls.maxPolarAngle = Math.PI / 2;
-  // controls.noZoom = true;
-  // controls.noPan = true;
-  
   
   clock = new THREE.Clock();
 
@@ -263,19 +255,6 @@ Hero = function() {
   this.head.castShadow = true;
   this.body.add(this.head);
   
-  var cheekGeom = new THREE.CubeGeometry(1, 4, 4, 1);
-  this.cheekR = new THREE.Mesh(cheekGeom, pinkMat);
-  this.cheekR.position.x = -5;
-  this.cheekR.position.z = 7;
-  this.cheekR.position.y = -2.5;
-  this.cheekR.castShadow = true;
-  this.head.add(this.cheekR);
-  
-  this.cheekL = this.cheekR.clone();
-  this.cheekL.position.x = - this.cheekR.position.x;
-  this.head.add(this.cheekL);
-  
-  
   var noseGeom = new THREE.CubeGeometry(6, 6, 3, 1);
   this.nose = new THREE.Mesh(noseGeom, lightBrownMat);
   this.nose.position.z = 13.5;
@@ -293,7 +272,7 @@ Hero = function() {
   this.head.add(this.mouth);
   
   
-  var pawFGeom = new THREE.CubeGeometry(3,3,3, 1);
+  var pawFGeom = new THREE.CylinderGeometry(1.5,0,10);
   this.pawFR = new THREE.Mesh(pawFGeom, lightBrownMat);
   this.pawFR.position.x = -2;
   this.pawFR.position.z = 6;
@@ -306,10 +285,10 @@ Hero = function() {
   this.pawFL.castShadow = true;
   this.body.add(this.pawFL);
   
-  var pawBGeom = new THREE.CubeGeometry(3,3,6, 1);
+  var pawBGeom = new THREE.CylinderGeometry(1.5,0,8);
   this.pawBL = new THREE.Mesh(pawBGeom, lightBrownMat);
-  this.pawBL.position.y = 1.5;
-  this.pawBL.position.z = 0;
+  this.pawBL.position.y = 4;
+  this.pawBL.position.z = 2;
   this.pawBL.position.x = 5;
   this.pawBL.castShadow = true;
   this.body.add(this.pawBL);
@@ -899,47 +878,15 @@ Carrot = function() {
 }
 
 Ikan = function() {
-  this.angle = 0;
+  this.angle = 10;
   this.mesh = new THREE.Group();
   
-  var bodyGeom = new THREE.CylinderGeometry(3,3, 11, 30);
+  var bodyGeom = new THREE.SphereGeometry(5,31,21);
   bodyGeom.vertices[8].y+=4;
   bodyGeom.vertices[9].y-=5;
   
-  this.body = new THREE.Mesh(bodyGeom, brownMat);
-  
-  var leafGeom = new THREE.SphereGeometry(5,31,21);
-  leafGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,5,0));
-  leafGeom.vertices[2].x-=1;
-  leafGeom.vertices[3].x-=1;
-  leafGeom.vertices[6].x+=1;
-  leafGeom.vertices[7].x+=1;
-  
-  this.leaf1 = new THREE.Mesh(leafGeom,whiteMat);
-  this.leaf1.position.y = 7;
-  this.leaf1.rotation.z = .3;
-  this.leaf1.rotation.x = .2;
-  
-  this.leaf2 = this.leaf1.clone();
-  this.leaf2.position.y = 7;
-  this.leaf2.rotation.z = -.3;
-  this.leaf2.rotation.x = -.2;
-
-  this.leaf3 = this.leaf1.clone();
-  this.leaf3.position.y = -7;
-  this.leaf3.rotation.z = .3;
-  this.leaf3.rotation.x = .2;
-
-  this.leaf4 = this.leaf1.clone();
-  this.leaf4.position.y = -7;
-  this.leaf4.rotation.z = -.3;
-  this.leaf4.rotation.x = -.2; 
-  
+  this.body = new THREE.Mesh(bodyGeom, skinMat);
   this.mesh.add(this.body);
-  this.mesh.add(this.leaf1);
-  this.mesh.add(this.leaf2);
-  this.mesh.add(this.leaf3);
-  this.mesh.add(this.leaf4);
 
   this.body.traverse(function(object) {
     if (object instanceof THREE.Mesh) {
@@ -1066,15 +1013,6 @@ function replay(){
   
 }
 
-// Fir = function() {
-//   var height = 200;
-//   // var truncGeom = new THREE.CylinderGeometry(2,2,height, 6,1);
-//   var truncGeom = new THREE.BoxGeometry(100,100,100);
-//   truncGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,height/2,0));
-//   this.mesh = new THREE.Mesh(truncGeom, blackMat);
-//   this.mesh.castShadow = true;
-// }
-
 var firs = new THREE.Group();
 
 function createFirs(){
@@ -1119,8 +1057,8 @@ function updateCarrotPosition(){
 function updateIkanPosition(){
   ikan.mesh.rotation.y += delta * 6;
   ikan.mesh.rotation.z = Math.PI/2 - (floorRotation+ikan.angle);
-  ikan.mesh.position.y = -floorRadius + Math.sin(floorRotation+ikan.angle) * (floorRadius+50);
-  ikan.mesh.position.x = Math.cos(floorRotation+ikan.angle) * (floorRadius+50);
+  ikan.mesh.position.y = -floorRadius + Math.sin(floorRotation+ikan.angle) * (floorRadius+40);
+  ikan.mesh.position.x = Math.cos(floorRotation+ikan.angle) * (floorRadius+240);
   
 }
 
@@ -1197,7 +1135,7 @@ function getBonus2(){
   bonusParticles.explose();
   ikan.angle += Math.PI/2;
   //speed*=.95;
-  monsterPosTarget += .025;
+  monsterPosTarget += .04;
   
 }
 
@@ -1309,12 +1247,6 @@ function initUI(){
   fieldGameOver = document.getElementById("gameoverInstructions");
   
 }
-
-
-
-////////////////////////////////////////////////
-//                                        MODELS
-////////////////////////////////////////////////
 
 // TREE
 
