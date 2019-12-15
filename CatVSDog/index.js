@@ -107,7 +107,7 @@ function initScreenAnd3D() {
 
   scene = new THREE.Scene();
   
-  scene.fog = new THREE.Fog(0xd6eae6, 160,350);
+  scene.fog = new THREE.Fog(0x694E69, 140,390);
   
   aspectRatio = WIDTH / HEIGHT;
   fieldOfView = 50;
@@ -828,7 +828,7 @@ Monster.prototype.sit = function(){
 }
 
 
-Carrot = function() {
+Tulangs = function() {
   this.angle = 0;
   this.mesh = new THREE.Group();
   
@@ -964,7 +964,7 @@ function gameOver(){
   monster.heroHolder.add(hero.mesh);
   TweenMax.to(this, 1, {speed:0});
   TweenMax.to(camera.position, 3, {z:cameraPosGameOver, y: 60, x:-30});
-  carrot.mesh.visible = false;
+  tulang.mesh.visible = false;
   ikan.mesh.visible = false;
   obstacle.mesh.visible = false;
   clearInterval(levelInterval);
@@ -1037,9 +1037,9 @@ function createFirs(){
   }
 }
 
-function createCarrot(){
-  carrot = new Carrot();
-  scene.add(carrot.mesh);
+function createTulangs(){
+  tulang = new Tulangs();
+  scene.add(tulang.mesh);
 }
 
 function createIkan(){
@@ -1047,11 +1047,11 @@ function createIkan(){
   scene.add(ikan.mesh);
 }
 
-function updateCarrotPosition(){
-  carrot.mesh.rotation.y += delta * 6;
-  carrot.mesh.rotation.z = Math.PI/2 - (floorRotation+carrot.angle);
-  carrot.mesh.position.y = -floorRadius + Math.sin(floorRotation+carrot.angle) * (floorRadius+50);
-  carrot.mesh.position.x = Math.cos(floorRotation+carrot.angle) * (floorRadius+50);
+function updateTulangsPosition(){
+  tulang.mesh.rotation.y += delta * 6;
+  tulang.mesh.rotation.z = Math.PI/2 - (floorRotation+tulang.angle);
+  tulang.mesh.position.y = -floorRadius + Math.sin(floorRotation+tulang.angle) * (floorRadius+50);
+  tulang.mesh.position.x = Math.cos(floorRotation+tulang.angle) * (floorRadius+50);
   
 }
 
@@ -1103,7 +1103,7 @@ function createBonusParticles(){
 
 
 function checkCollision(){
-  var db = hero.mesh.position.clone().sub(carrot.mesh.position.clone());
+  var db = hero.mesh.position.clone().sub(tulang.mesh.position.clone());
   var di = hero.mesh.position.clone().sub(ikan.mesh.position.clone());
   var dm = hero.mesh.position.clone().sub(obstacle.mesh.position.clone());
   
@@ -1121,10 +1121,10 @@ function checkCollision(){
 }
 
 function getBonus(){
-  bonusParticles.mesh.position.copy(carrot.mesh.position);
+  bonusParticles.mesh.position.copy(tulang.mesh.position);
   bonusParticles.mesh.visible = true;
   bonusParticles.explose();
-  carrot.angle += Math.PI/2;
+  tulang.angle += Math.PI/2;
   speed*=.95;
   monsterPosTarget += .025;
 }
@@ -1184,7 +1184,7 @@ function loop(){
     }
     updateDistance();
     updateMonsterPosition();
-    updateCarrotPosition();
+    updateTulangsPosition();
     updateIkanPosition();
     updateObstaclePosition();
     checkCollision();
@@ -1207,7 +1207,7 @@ function init(event){
   createHero();
   createMonster();
   createFirs();
-  createCarrot();
+  createTulangs();
   createIkan();
   createBonusParticles();
   createObstacle();
@@ -1230,7 +1230,7 @@ function resetGame(){
   speed = initSpeed;
   level = 0;
   distance = 0;
-  carrot.mesh.visible = true;
+  tulang.mesh.visible = true;
   ikan.mesh.visible = true;
   obstacle.mesh.visible = true;
   gameStatus = "play";

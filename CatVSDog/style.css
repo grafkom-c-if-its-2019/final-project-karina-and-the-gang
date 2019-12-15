@@ -1,12 +1,15 @@
 
 @import url('https://fonts.googleapis.com/css?family=Architects Daughter');
+@import url('https://fonts.googleapis.com/css?family=Atma');
 
 
 #world{
   position: absolute;
   width:100%;
   height: 100%;
-  background-color: #dbe6e6;
+  background-image: url("libs/tumblr_81644723656ec621b103f47212b1173f_5b880f21_400.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
   overflow: hidden;
 }
 
@@ -38,7 +41,7 @@
 
 .label{
   position:relative;
-  font-family:'Architects Daughter', sans-serif;
+  font-family:'Atma', sans-serif;
   text-transform:uppercase;
   color:#ff00ff;
   font-size:20px;
@@ -53,7 +56,7 @@
   position:relative;
   text-transform:uppercase;
   color:#ffffff;
-  font-size:40px;
+  font-size:44px;
   font-family:'Architects Daughter';
   font-weight: bold;
   text-align:center;
