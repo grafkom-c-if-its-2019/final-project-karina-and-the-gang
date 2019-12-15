@@ -12,29 +12,20 @@
 
 
 #gameoverInstructions{
-  /* position:absolute;
+  position:absolute;
   font-family:'Voltaire', sans-serif;
   font-weight:bold;
-  text-transform: uppercase;
   font-size:120px;
   text-align:center;
   color:#ffc5a2;
-  opacity:0;
+  opacity:1;
   left:50%;
   top:50%;
   width:100%;
   transform : translate(-50%,-100%);
   user-select: none;
-  transition: all 500ms ease-in-out; */
-  display: none;
+  transition: all 500ms ease-in-out;
 }
-
-#gameoverInstructions .show{
-  display: block;
-  /* opacity:1;
-  transform : translate(-50%,-50%);
-  transition: all 500ms ease-in-out; */
-};
 
 
 #dist{

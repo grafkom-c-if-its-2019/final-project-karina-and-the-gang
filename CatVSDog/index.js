@@ -955,7 +955,7 @@ function updateMonsterPosition(){
 }
 
 function gameOver(){
-  fieldGameOver.className = "show";
+  fieldGameOver.innerHTML = "Game Over";
   gameStatus = "gameOver";
   monster.sit();
   hero.hang();
@@ -972,7 +972,7 @@ function replay(){
   
   gameStatus = "preparingToReplay"
   
-  fieldGameOver.className = "";
+  fieldGameOver.innerHTML = "";
   
   TweenMax.killTweensOf(monster.pawFL.position);
   TweenMax.killTweensOf(monster.pawFR.position);
