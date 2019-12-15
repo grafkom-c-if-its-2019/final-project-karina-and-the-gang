@@ -226,7 +226,7 @@ Hero = function() {
   this.body.add(this.torso);
   
   var pantsGeom = new THREE.CubeGeometry(9, 9, 5, 1);
-  this.pants = new THREE.Mesh(pantsGeom, whiteMat);
+  this.pants = new THREE.Mesh(pantsGeom, brownMat);
   this.pants.position.z = -3;
   this.pants.position.y = 0;
   this.pants.castShadow = true;
@@ -237,7 +237,7 @@ Hero = function() {
   tailGeom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
   tailGeom.applyMatrix(new THREE.Matrix4().makeRotationZ(Math.PI/4));
   
-  this.tail = new THREE.Mesh(tailGeom, brownMat);
+  this.tail = new THREE.Mesh(tailGeom, lightBrownMat);
   this.tail.position.z = -1;
   this.tail.position.y = 1.2;
   this.tail.castShadow = true;
@@ -287,9 +287,9 @@ Hero = function() {
   
   var pawBGeom = new THREE.CylinderGeometry(1.5,0,8);
   this.pawBL = new THREE.Mesh(pawBGeom, lightBrownMat);
-  this.pawBL.position.y = 4;
-  this.pawBL.position.z = 2;
-  this.pawBL.position.x = 5;
+  this.pawBL.position.y = 8;
+  this.pawBL.position.z = 0;
+  this.pawBL.position.x = 1;
   this.pawBL.castShadow = true;
   this.body.add(this.pawBL);
   
@@ -310,7 +310,7 @@ Hero = function() {
  
   earGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,3,0));
   
-  this.earL = new THREE.Mesh(earGeom, brownMat);
+  this.earL = new THREE.Mesh(earGeom, lightBrownMat);
   this.earL.position.x = 7;
   this.earL.position.z = 1;
   this.earL.position.y = 5;
@@ -402,8 +402,8 @@ Hero.prototype.run = function(){
   this.runningCycle = this.runningCycle % (Math.PI*2);
   var t = this.runningCycle;
   
-  var amp = 4;
-  var disp = .2;
+  var amp = 2;
+  var disp = .7;
   
   // BODY
   
@@ -499,7 +499,7 @@ Monster = function(){
   this.body = new THREE.Group();
   
   var torsoGeom = new THREE.CubeGeometry(15,15,20, 1);
-  this.torso = new THREE.Mesh(torsoGeom, blackMat);
+  this.torso = new THREE.Mesh(torsoGeom, skinMat);
   
   var headGeom = new THREE.CubeGeometry(20,20,40, 1);
   headGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0,0,20));
@@ -554,7 +554,7 @@ Monster = function(){
   this.mouth.add(this.tongue);
   
   var noseGeom = new THREE.CubeGeometry(4,4,4, 1);
-  this.nose = new THREE.Mesh(noseGeom, pinkMat);
+  this.nose = new THREE.Mesh(noseGeom, skinMat);
   this.nose.position.z = 39.5;
   this.nose.position.y = 9;
   this.head.add(this.nose);
