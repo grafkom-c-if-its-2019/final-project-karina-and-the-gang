@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css?family=Voltaire');
+@import url('https://fonts.googleapis.com/css?family=Architects Daughter');
 
 
 #world{
@@ -13,11 +13,11 @@
 
 #gameoverInstructions{
   position:absolute;
-  font-family:'Voltaire', sans-serif;
+  font-family:'Architects Daughter', sans-serif;
   font-weight:bold;
   font-size:120px;
   text-align:center;
-  color:#ffc5a2;
+  color:#ff9ea5;
   opacity:1;
   left:50%;
   top:50%;
@@ -38,10 +38,11 @@
 
 .label{
   position:relative;
-  font-family:'Voltaire', sans-serif;
+  font-family:'Architects Daughter', sans-serif;
   text-transform:uppercase;
-  color:#ffa873;
-  font-size:12px;
+  color:#ff9ea5;
+  font-size:20px;
+  font-weight: bolder;
   letter-spacing:2px;
   text-align:center;
   margin-bottom:5px;
@@ -51,9 +52,10 @@
 #distValue{
   position:relative;
   text-transform:uppercase;
-  color:#dc5f45;
+  color:#000000;
   font-size:40px;
-  font-family:'Voltaire';
+  font-family:'Architects Daughter';
+  font-weight: bold;
   text-align:center;
 }
 
@@ -63,14 +65,15 @@
   bottom:0;
   margin: auto;
   margin-bottom:50px;
-  font-family:'Voltaire', sans-serif;
-  color:#dc5f45;
-  font-size:16px;
+  font-family:'Architects Daughter', sans-serif;
+  color:#000000;
+  font-size:28px;
+  font-weight: bold;
   letter-spacing:1px;
   text-transform: uppercase;
   text-align : center;
   user-select: none;
 }
 .lightInstructions {
-  color:#5f9042;
+  color:#ff9ea5;
 }
