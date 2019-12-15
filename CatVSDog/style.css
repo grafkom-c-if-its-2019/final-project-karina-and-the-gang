@@ -40,7 +40,7 @@
   position:relative;
   font-family:'Architects Daughter', sans-serif;
   text-transform:uppercase;
-  color:#ff9ea5;
+  color:#ff00ff;
   font-size:20px;
   font-weight: bolder;
   letter-spacing:2px;
@@ -75,5 +75,5 @@
   user-select: none;
 }
 .lightInstructions {
-  color:#ff9ea5;
+  color:#dbe6e6;
 }
