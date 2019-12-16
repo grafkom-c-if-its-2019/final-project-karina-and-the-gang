@@ -28,6 +28,9 @@ var monsterAcceleration = 0.004;
 var malusClearColor = 0xb44b39;
 var malusClearAlpha = 0;
 var audio = new Audio('audio/audio.mp3');
+var audioBatu = new Audio('audio/audioBatu.mp3');
+var audioLoncat = new Audio('audio/audioLoncat.mp3');
+
 
 
 var fieldGameOver, fieldDistance;
@@ -465,11 +468,16 @@ Hero.prototype.run = function(){
 }
 
 Hero.prototype.jump = function(){
-  if (this.status == "jumping") return;
+  if (this.status == "jumping")return;
+  
   this.status = "jumping";
+  // audioLoncat.play();
+
   var _this = this;
   var totalSpeed = 10 / speed;
   var jumpHeight = 45;
+  
+
   
   TweenMax.to(this.earL.rotation, totalSpeed, {x:"+=.3", ease:Back.easeOut});
   TweenMax.to(this.earR.rotation, totalSpeed, {x:"-=.3", ease:Back.easeOut});
@@ -1116,6 +1124,7 @@ function checkCollision(){
   }
   
   if(dm.length() < collisionObstacle && obstacle.status != "flying"){
+    // audioBatu.play();
     getMalus();
   }
 }
@@ -1139,10 +1148,13 @@ function getBonus2(){
 }
 
 function getMalus(){
+  audioBatu.play();
+
   obstacle.status="flying";
   var tx = (Math.random()>.5)? -20-Math.random()*10 : 20+Math.random()*5;
   TweenMax.to(obstacle.mesh.position, 4, {x:tx, y:Math.random()*50, z:350, ease:Power4.easeOut});
   TweenMax.to(obstacle.mesh.rotation, 4, {x:Math.PI*3, z:Math.PI*3, y:Math.PI*6, ease:Power4.easeOut, onComplete:function(){
+   
     obstacle.status = "ready";
     obstacle.body.rotation.y = Math.random() * Math.PI*2;
     obstacle.angle = -floorRotation - Math.random()*.4;
