@@ -30,6 +30,21 @@
   transition: all 500ms ease-in-out;
 }
 
+#replayButton{
+  position:absolute;
+  font-family:'Architects Daughter', sans-serif;
+  font-weight:bold;
+  font-size:50px;
+  text-align:center;
+  color:#ffffff;
+  opacity:1;
+  left:50%;
+  top:70%;
+  transform : translate(-50%,-100%);
+  user-select: none;
+  transition: all 500ms ease-in-out;
+}
+
 
 #dist{
   position:absolute;

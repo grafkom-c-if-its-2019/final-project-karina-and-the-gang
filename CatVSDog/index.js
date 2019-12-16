@@ -33,7 +33,7 @@ var audioLoncat = new Audio('audio/audioLoncat.mp3');
 
 
 
-var fieldGameOver, fieldDistance;
+var fieldGameOver, fieldDistance, fieldReplay;
 
 //SCREEN & MOUSE VARIABLES
 
@@ -966,6 +966,7 @@ function updateMonsterPosition(){
 
 function gameOver(){
   fieldGameOver.innerHTML = "Game Over";
+  fieldReplay.innerHTML = '<button class="button" id="replayButton" onclick="resetGame()">Replay</button>';
   gameStatus = "gameOver";
   monster.sit();
   hero.hang();
@@ -1017,8 +1018,7 @@ function replay(){
   TweenMax.to(hero.head.rotation, 2, { x:0, y:0, ease:Power4.easeInOut});
   TweenMax.to(monster.mouth.rotation, 2, {x:.2, ease:Power4.easeInOut});
   TweenMax.to(monster.mouth.rotation, 1, {x:.4, ease:Power4.easeIn, delay: 1, onComplete:function(){
-    
-    resetGame();
+    fieldReplay.innerHTML = "";        
   }});
   
 }
@@ -1256,6 +1256,7 @@ function resetGame(){
 function initUI(){
   fieldDistance = document.getElementById("distValue");
   fieldGameOver = document.getElementById("gameoverInstructions");
+  fieldReplay = document.getElementById("replayButton");
   
 }
 
