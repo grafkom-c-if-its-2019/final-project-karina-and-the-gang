@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Catvsdogs</title>
+    <title>Cat Vs Dog</title>
 
     <script type="text/javascript" src="libs/three.js"></script>
     <script type="text/javascript" src="libs/TweenMax.min.js"></script>
@@ -14,18 +14,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <center>
-    <div class="bg-main">
-        <div class="mainpage">
-            <img src = "libs/texture/Cat vs dog.png" style="height: 50%; width:50%"><br>
-            <form method="get" action="index1.html">
-                <button class = "button" type="submit">Let's Play!</button>
-            </form><br>
-            <form method="get" action="howtoplay.html">
-                <button class = "button" type="submit">How To Play!</button>
-            </form>  
+    <div id="world">
+        <div id="gameoverInstructions">
         </div>
     </div>
-    </center>
+    <div id="dist">
+        <div class="label">SKOR</div>
+        <div id="distValue">000</div>
+    </div>
+
+    <div id="instructions">
+        Klik untuk Lompat !!!
+        <span class="lightInstructions"> — Ambil makanan dan lari dari anjing galak >:( !!! —</span>
+    </div>
 </body>
 </html>
